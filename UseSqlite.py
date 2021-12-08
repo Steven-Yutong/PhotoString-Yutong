@@ -3,6 +3,7 @@
 
 import sqlite3
 
+
 class Sqlite3Template:
     def __init__(self, db_fname):
         self.db_fname = db_fname
@@ -25,12 +26,12 @@ class Sqlite3Template:
         self.instructions(self.query)
         self.operate()
         
-        
+        # 插入
 class InsertQuery(Sqlite3Template):
     def instructions(self, query):
         self.query = query
         
-
+        # 查找并显示所有
 class RiskQuery(Sqlite3Template):
     def instructions(self, query):
         self.query = query

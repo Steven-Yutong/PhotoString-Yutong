@@ -5,14 +5,25 @@ Created on Mon Jun  3 15:42:51 2019
 @author: Administrator
 """
 
-from flask import Flask, request
+from flask import Flask, request,redirect,url_for
 from UseSqlite import InsertQuery, RiskQuery
 from datetime import datetime
 from PIL import Image
+from test_blueprint import test_blueprint
+from show import show_bp
+from api import api_bp
+from upload import upload_bp
 
-app=Flask(__name__)
+app = Flask(__name__)
+
+# 将蓝图注册到app
+app.register_blueprint(show_bp, url_prefix="/show")
+app.register_blueprint(upload_bp, url_prefix="/upload")
+app.register_blueprint(api_bp, url_prefix="/api")
+
 # 自己本地的项目绝对路径
 ch='E:/JupyterWork/PhotoString_by_ChenXintao'
+
 
 def make_html_paragraph(s):
     if s.strip()=='':
@@ -29,34 +40,22 @@ def make_html_paragraph(s):
     result+='<a href="%s"><img src="./static/figure/%s"alt="风景图"></a>'%(picture_path,picture_name)
     return result+'</p>'
 
+
 def get_database_photos():
-    rq=RiskQuery(ch + '/static/RiskDB.db')
+    rq = RiskQuery(ch + '/static/RiskDB.db')
     rq.instructions("SELECT * FROM photo ORDER By time desc")
     rq.do()
-    record='<p>My past photo</p>'
+    record = '<p>My past photo</p>'
     for r in rq.format_results().split('\n\n'):
         record+='%s'%(make_html_paragraph(r))
     return record+'</table>\n'
 
-@app.route('/',methods=['POST','GET'])
-def main():
-    if request.method=='POST':
-        uploaded_file=request.files['file']
-        time_str=datetime.now().strftime('%Y%m%d%H%M%S')
-        new_filename=time_str+'.jpg'
-        uploaded_file.save(ch + '/static/upload/'+new_filename)
-        time_info=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        description=request.form['description']
-        path=ch + '/static/upload/'+new_filename
-        iq=InsertQuery(ch + '/static/RiskDB.db')
-        iq.instructions("INSERT INTO photo Values('%s','%s','%s','%s')"%(time_info,description,path,new_filename))
-        iq.do()
-        return '<p>You have uploaded %s.<br/> <a href="/">Return</a>.'%(uploaded_file.filename)
-    else:
-        page='''<form action="/"method="post"enctype="multipart/form-data">
-        <input type="file"name="file"><input name="description"><input type="submit"value="Upload"></form>'''
-        page+= get_database_photos()
-        return page
-    
-if __name__=='__main__':
+
+@app.route('/', methods=['POST', 'GET'])
+def show():
+    return redirect(url_for('show_bp.show'))
+
+
+if __name__ == '__main__':
+    app.run()
     app.run(debug=True)

@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request
-
+from flask import Flask, Blueprint, render_template, request
 from UseSqlite import RiskQuery
-
 from Lab import make_html_paragraph
+
+app = Flask(__name__)
+app.register_blueprint()
 
 testModule = Blueprint('testModule', __name__)
 
