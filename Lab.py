@@ -17,8 +17,8 @@ app = Flask(__name__)
 
 # 将蓝图注册到app
 app.register_blueprint(show_bp, url_prefix="/show")
-app.register_blueprint(upload_bp, url_prefix="/upload")
-app.register_blueprint(api_bp, url_prefix="/api")
+# app.register_blueprint(upload_bp, url_prefix="/upload")
+app.register_blueprint(api_bp)
 
 # 自己本地的项目绝对路径
 ch='E:/JupyterWork/PhotoString_by_ChenXintao'
