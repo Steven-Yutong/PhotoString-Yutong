@@ -4,6 +4,7 @@ from flask import Blueprint, request
 from UseSqlite import InsertQuery, RiskQuery
 from PIL import Image
 import datetime
+
 show_bp = Blueprint("show_bp", __name__)
 
 # 定义项目的绝对路径
@@ -50,19 +51,22 @@ def search():
     return page
 
 
-@show_bp.route("/upload", methods=['GET', 'POST'])
+@show_bp.route("/upload", methods=['GET', 'POST'])  # 点击file跳转到/show/upload进行文件上传
 def upload():
-        uploaded_file = request.files['file']
-        time_str = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-        new_filename = time_str + '.jpg'
-        uploaded_file.save(ch + '/static/upload/' + new_filename)
-        time_info = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        description = request.form['description']
-        path = ch + '/static/upload/' + new_filename
-        iq = InsertQuery(ch + '/static/RiskDB.db')
-        iq.instructions("INSERT INTO photo Values('%s','%s','%s','%s')" % (time_info, description, path, new_filename))
-        iq.do()
-        return '<p>You have uploaded %s.<br/> <a href="/">Return</a>.' % (uploaded_file.filename)
+
+    uploaded_file = request.files['file']  # 获取文件
+    time_str = datetime.datetime.now().strftime('%Y%m%d%H%M%S')  # 获取时间
+    new_filename = time_str + '.jpg'  # 将新文件名称命名为当前时间
+    uploaded_file.save(ch + '/static/upload/' + new_filename)  # 将新文件以当前时间命名，保存至static/upload文件夹下
+    time_info = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 获取时间
+    description = request.form['description']  # 获取文件名称
+    path = ch + '/static/upload/' + new_filename  # 获取文件地址
+    iq = InsertQuery(ch + '/static/RiskDB.db')  # 获取数据库地址
+    iq.instructions(
+        "INSERT INTO photo Values('%s','%s','%s','%s')" % (time_info, description, path, new_filename))  # 将文件信息存入数据库
+    iq.do()
+    return '<p>You have uploaded %s.<br/> <a href="/">Return</a>.' % (
+        uploaded_file.filename)  # 显示文件upload成功，并增加返回show页面按钮。
 
 
 # 将图片的信息转为网页显示的格式
@@ -88,7 +92,7 @@ def make_html_paragraph(s):
 
 
 # 获取数据库所有照片及其信息
-def get_database_photos(str = ''):
+def get_database_photos(str=''):
     rq = RiskQuery('./static/RiskDB.db')
     # sql语句:无检索特殊要求，默认检索所有图片
     if (str == ''):
