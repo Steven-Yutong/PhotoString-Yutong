@@ -68,10 +68,12 @@ Results
 将原本Lab中的所有模块功能都细分到了show.py和api.py，并将这两个文件以蓝图形式在Lab.py这个主运行文件中注册。
 在主运行文件中，默认路由会重定向到show_bp蓝图中的show方法并执行。
 
-\``\` python Lab.py from flask import Flask, redirect, url_for from show
+``` python Lab.py 
+from flask import Flask, redirect, url_for from show
 import show_bp from api import api_bp
 
 app = Flask(**name**)
+```
 
 将蓝图注册到app
 ~~~~~~~~~~~~~~~
