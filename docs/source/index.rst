@@ -210,9 +210,9 @@ API使用get()方法，从数据库中读取图片信息。图片信息包括图
            data.append(js)  # 将图片信息存入数组
        return data
 
-`点击观看视频 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.mp4>`__
+`下载视频 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.mp4>`__
 
-`源代码 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.zip>`__
+`下载源码 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.zip>`__
 
 Discussions
 -----------
