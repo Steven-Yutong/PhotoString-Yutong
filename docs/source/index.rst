@@ -11,9 +11,6 @@ Welcome to PhotoString's documentation!
    :caption: Contents:
 
 
-
-==================
-
 Lab2：Use blueprints to architect a web application
 ==============================================
 
