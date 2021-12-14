@@ -68,45 +68,40 @@ Results
 将原本Lab中的所有模块功能都细分到了show.py和api.py，并将这两个文件以蓝图形式在Lab.py这个主运行文件中注册。
 在主运行文件中，默认路由会重定向到show_bp蓝图中的show方法并执行。
 
-``` python Lab.py 
-from flask import Flask, redirect, url_for from show
-import show_bp from api import api_bp
+.. code:: python
 
-app = Flask(**name**)
-```
+   from flask import Flask, redirect, url_for
+   from show import show_bp
+   from api import api_bp
 
-将蓝图注册到app
-~~~~~~~~~~~~~~~
+   app = Flask(__name__)
 
-1.注册show蓝图
-^^^^^^^^^^^^^^
+   # 将蓝图注册到app
+   # 1.注册show蓝图
+   # 2.注册api蓝图
+   app.register_blueprint(show_bp, url_prefix="/show")
+   app.register_blueprint(api_bp)
 
-2.注册api蓝图
-^^^^^^^^^^^^^^
-
-app.register_blueprint(show_bp, url_prefix=“/show”)
-app.register_blueprint(api_bp)
-
-自己本地的项目绝对路径
-~~~~~~~~~~~~~~~~~~~~~~
-
-ch = ‘E:/JupyterWork/PhotoString_by_ChenXintao’
-
-在运行主界面后，会自动执行此方法
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-@app.route(‘/’, methods=[‘POST’, ‘GET’]) def show(): # url_for 获取
-show_bp.show的url地址 # redirect 重定向到目标地址 return
-redirect(url_for(‘show_bp.show’))
-
-if **name** == ‘**main**’: app.run() app.run(debug=True)
-
-::
+   # 自己本地的项目绝对路径
+   ch = 'E:/JupyterWork/PhotoString_by_ChenXintao'
 
 
-   在show.py文件中创建蓝图对象，并命名为“show_bp”
+   # 在运行主界面后，会自动执行此方法
+   @app.route('/', methods=['POST', 'GET'])
+   def show():
+       # url_for 获取 show_bp.show的url地址
+       # redirect 重定向到目标地址
+       return redirect(url_for('show_bp.show'))
 
-   ``` python
+
+   if __name__ == '__main__':
+       app.run()
+       app.run(debug=True)
+
+在show.py文件中创建蓝图对象，并命名为“show_bp”
+
+.. code:: python
+
    show_bp = Blueprint("show_bp", __name__)
 
 在show.py下的show方法中，在源代码的显示界面的基础上增加了检索的表单。在程序启动后，网页会默认执行以下方法，将数据库中存储的所有图片以及检索图片功能、上传图片功能显示在网页上。
@@ -215,9 +210,9 @@ API使用get()方法，从数据库中读取图片信息。图片信息包括图
            data.append(js)  # 将图片信息存入数组
        return data
 
-`下载视频 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.mp4>`__
+`点击观看视频 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.mp4>`__
 
-`下载源码 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.zip>`__
+`源代码 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.zip>`__
 
 Discussions
 -----------
