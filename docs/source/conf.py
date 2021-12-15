@@ -19,7 +19,17 @@
 
 project = 'PhotoString'
 copyright = '2021, yutong'
-author = 'yutong'
+author = '小组成员信息： 
+
+201932110143 王炫 
+
+201932110145 邬程峰 
+
+201932110146 吴彬宇
+
+201932110147 吴雨桐 
+
+201932110148 谢铭轩'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'
