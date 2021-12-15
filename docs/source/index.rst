@@ -30,7 +30,7 @@ Lab2：Use blueprints to architect a web application
 
 项目Read the Docs地址：\ `Read the Docs <https://photostring-yutong.readthedocs.io/zh/latest/>`__
 
-`观看视频 <https://www.bilibili.com/video/BV1144y1E7Tc/`__
+`观看视频 <https://www.bilibili.com/video/BV1144y1E7Tc/>`__
 
 `下载源码 <https://github.com/Steven-Yutong/PhotoString-Yutong/blob/master/docs/source/PhotoString.zip>`__
 
